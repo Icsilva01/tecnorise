@@ -23,7 +23,7 @@ const style = {
 };
 
 export const StandartModal: React.FC = () => {
-  const isModalOpen = useSelector((state: RootState) => state.modal); // Use state.modal para verificar se o modal está aberto
+  const isModalOpen = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch();
 
 
