@@ -32,8 +32,22 @@ const userSlice = createSlice({
   },
 });
 
+const modalSlice = createSlice({
+  name: 'modal',
+  initialState: false,
+  reducers: {
+    showModal: () => true,
+    hideModal: () => false,
+  },
+});
+
+export const { showModal, hideModal } = modalSlice.actions;
+
 export const { setToken, setIsnEmpresa, logout } = userSlice.actions;
 
 export const rootReducer = combineReducers({
   user: userSlice.reducer,
+  modal: modalSlice.reducer,
 });
+
+

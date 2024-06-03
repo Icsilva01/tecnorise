@@ -72,9 +72,6 @@ export const Dispositivos: React.FC = () => {
     }
   };
 
-  if (loading) return <p>Carregando...</p>;
-  if (error) return <p>Erro :(</p>;
-
   return (
     <Stack
       borderRadius={"30px"}
