@@ -9,15 +9,9 @@ import { DefaultTextFieldCurrency } from "../CurrencyField/CurrencyField";
 import { StandartButton } from "../StandartButton/StandartButton";
 
 export const Dispositivos: React.FC = () => {
-  const token = useSelector((state: RootState) => state.user.token);
   const isnEmpresa = useSelector((state: RootState) => state.user.isnEmpresa);
   const { loading, error, data } = useQuery(GET_EMPRESA_QUERY, {
     variables: { isn_empresa: isnEmpresa },
-    context: {
-      headers: {
-        Authorization: `${token}`,
-      },
-    },
   });
 
   const [values, setValues] = useState({
@@ -54,11 +48,6 @@ export const Dispositivos: React.FC = () => {
       valor_controle_remoto: values.valor_controle_remoto,
       valor_tag_veicular: values.valor_tag_veicular,
     },
-    context: {
-      headers: {
-        Authorization: ` ${token}`,
-      },
-    },
   });
 
   const handleSubmit = async () => {
@@ -71,7 +60,6 @@ export const Dispositivos: React.FC = () => {
       alert("Erro ao atualizar valores");
     }
   };
-
   return (
     <Stack
       borderRadius={"30px"}

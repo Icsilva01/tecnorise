@@ -1,10 +1,21 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { setContext } from '@apollo/client/link/context';
 import { LOGIN_MUTATION, UPDATE_EMPRESA_MUTATION } from "../graphql/mutations";
 import { LoginData } from "../types/types";
 import { httpLink } from "./httpLink";
 
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `${token}` : "",
+    }
+  }
+});
+
 export const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
@@ -17,6 +28,10 @@ export const login = async (
       mutation: LOGIN_MUTATION,
       variables: { usuario, password },
     });
+
+    if (data.login) {
+      localStorage.setItem('token', data.login.token);
+    }
 
     return data.login;
   } catch (error) {
